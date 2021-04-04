@@ -119,39 +119,37 @@ static bool DownloadStore() {
 		if (storeJson.is_discarded())
 			storeJson = { };
 
-		if (doSheet) {
-			if (storeJson["storeInfo"].contains("sheetURL") && storeJson["storeInfo"]["sheetURL"].is_array()) {
-				if (storeJson["storeInfo"].contains("sheet") && storeJson["storeInfo"]["sheet"].is_array()) {
-					const std::vector<std::string> locs = storeJson["storeInfo"]["sheetURL"].get<std::vector<std::string>>();
-					const std::vector<std::string> sht = storeJson["storeInfo"]["sheet"].get<std::vector<std::string>>();
+		if (storeJson["storeInfo"].contains("sheetURL") && storeJson["storeInfo"]["sheetURL"].is_array()) {
+			if (storeJson["storeInfo"].contains("sheet") && storeJson["storeInfo"]["sheet"].is_array()) {
+				const std::vector<std::string> locs = storeJson["storeInfo"]["sheetURL"].get<std::vector<std::string>>();
+				const std::vector<std::string> sht = storeJson["storeInfo"]["sheet"].get<std::vector<std::string>>();
 
-					if (locs.size() == sht.size()) {
-						for (int i = 0; i < (int)sht.size(); i++) {
-							if (!(sht[i].find("/") != std::string::npos)) {
-								char msg[150];
-								snprintf(msg, sizeof(msg), Lang::get("DOWNLOADING_SPRITE_SHEET2").c_str(), i + 1, sht.size());
-								Msg::DisplayMsg(msg);
-								DownloadSpriteSheet(locs[i], sht[i]);
+				if (locs.size() == sht.size()) {
+					for (int i = 0; i < (int)sht.size(); i++) {
+						if (!(sht[i].find("/") != std::string::npos)) {
+							char msg[150];
+							snprintf(msg, sizeof(msg), Lang::get("DOWNLOADING_SPRITE_SHEET2").c_str(), i + 1, sht.size());
+							Msg::DisplayMsg(msg);
+							DownloadSpriteSheet(locs[i], sht[i]);
 
-							} else {
-								Msg::waitMsg(Lang::get("SHEET_SLASH"));
-							}
+						} else {
+							Msg::waitMsg(Lang::get("SHEET_SLASH"));
 						}
 					}
 				}
+			}
 
-			} else if (storeJson["storeInfo"].contains("sheetURL") && storeJson["storeInfo"]["sheetURL"].is_string()) {
-				if (storeJson["storeInfo"].contains("sheet") && storeJson["storeInfo"]["sheet"].is_string()) {
-					const std::string fl = storeJson["storeInfo"]["sheetURL"];
-					const std::string fl2 = storeJson["storeInfo"]["sheet"];
+		} else if (storeJson["storeInfo"].contains("sheetURL") && storeJson["storeInfo"]["sheetURL"].is_string()) {
+			if (storeJson["storeInfo"].contains("sheet") && storeJson["storeInfo"]["sheet"].is_string()) {
+				const std::string fl = storeJson["storeInfo"]["sheetURL"];
+				const std::string fl2 = storeJson["storeInfo"]["sheet"];
 
-					if (!(fl2.find("/") != std::string::npos)) {
-						Msg::DisplayMsg(Lang::get("DOWNLOADING_SPRITE_SHEET"));
-						DownloadSpriteSheet(fl, fl2);
+				if (!(fl2.find("/") != std::string::npos)) {
+					Msg::DisplayMsg(Lang::get("DOWNLOADING_SPRITE_SHEET"));
+					DownloadSpriteSheet(fl, fl2);
 
-					} else {
-						Msg::waitMsg(Lang::get("SHEET_SLASH"));
-					}
+				} else {
+					Msg::waitMsg(Lang::get("SHEET_SLASH"));
 				}
 			}
 		}
@@ -177,39 +175,37 @@ static bool UpdateStore(const std::string &URL) {
 		if (storeJson.is_discarded())
 			storeJson = { };
 
-		if (doSheet) {
-			if (storeJson["storeInfo"].contains("sheetURL") && storeJson["storeInfo"]["sheetURL"].is_array()) {
-				if (storeJson["storeInfo"].contains("sheet") && storeJson["storeInfo"]["sheet"].is_array()) {
-					const std::vector<std::string> locs = storeJson["storeInfo"]["sheetURL"].get<std::vector<std::string>>();
-					const std::vector<std::string> sht = storeJson["storeInfo"]["sheet"].get<std::vector<std::string>>();
+		if (storeJson["storeInfo"].contains("sheetURL") && storeJson["storeInfo"]["sheetURL"].is_array()) {
+			if (storeJson["storeInfo"].contains("sheet") && storeJson["storeInfo"]["sheet"].is_array()) {
+				const std::vector<std::string> locs = storeJson["storeInfo"]["sheetURL"].get<std::vector<std::string>>();
+				const std::vector<std::string> sht = storeJson["storeInfo"]["sheet"].get<std::vector<std::string>>();
 
-					if (locs.size() == sht.size()) {
-						for (int i = 0; i < (int)sht.size(); i++) {
-							if (!(sht[i].find("/") != std::string::npos)) {
-								char msg[150];
-								snprintf(msg, sizeof(msg), Lang::get("DOWNLOADING_SPRITE_SHEET2").c_str(), i + 1, sht.size());
-								Msg::DisplayMsg(msg);
-								DownloadSpriteSheet(locs[i], sht[i]);
+				if (locs.size() == sht.size()) {
+					for (int i = 0; i < (int)sht.size(); i++) {
+						if (!(sht[i].find("/") != std::string::npos)) {
+							char msg[150];
+							snprintf(msg, sizeof(msg), Lang::get("DOWNLOADING_SPRITE_SHEET2").c_str(), i + 1, sht.size());
+							Msg::DisplayMsg(msg);
+							DownloadSpriteSheet(locs[i], sht[i]);
 
-							} else {
-								Msg::waitMsg(Lang::get("SHEET_SLASH"));
-							}
+						} else {
+							Msg::waitMsg(Lang::get("SHEET_SLASH"));
 						}
 					}
 				}
+			}
 
-			} else if (storeJson["storeInfo"].contains("sheetURL") && storeJson["storeInfo"]["sheetURL"].is_string()) {
-				if (storeJson["storeInfo"].contains("sheet") && storeJson["storeInfo"]["sheet"].is_string()) {
-					const std::string fl = storeJson["storeInfo"]["sheetURL"];
-					const std::string fl2 = storeJson["storeInfo"]["sheet"];
+		} else if (storeJson["storeInfo"].contains("sheetURL") && storeJson["storeInfo"]["sheetURL"].is_string()) {
+			if (storeJson["storeInfo"].contains("sheet") && storeJson["storeInfo"]["sheet"].is_string()) {
+				const std::string fl = storeJson["storeInfo"]["sheetURL"];
+				const std::string fl2 = storeJson["storeInfo"]["sheet"];
 
-					if (!(fl2.find("/") != std::string::npos)) {
-						Msg::DisplayMsg(Lang::get("DOWNLOADING_SPRITE_SHEET"));
-						DownloadSpriteSheet(fl, fl2);
+				if (!(fl2.find("/") != std::string::npos)) {
+					Msg::DisplayMsg(Lang::get("DOWNLOADING_SPRITE_SHEET"));
+					DownloadSpriteSheet(fl, fl2);
 
-					} else {
-						Msg::waitMsg(Lang::get("SHEET_SLASH"));
-					}
+				} else {
+					Msg::waitMsg(Lang::get("SHEET_SLASH"));
 				}
 			}
 		}
@@ -268,20 +264,20 @@ void Overlays::SelectStore() {
 
 			Gui::Draw_Rect(0, 0, 320, 25, UIThemes->BarColor());
 			Gui::Draw_Rect(0, 25, 320, 1, UIThemes->BarOutline());
-			GFX::DrawSprite(sprites_arrow_idx, mainButtons[9].x, mainButtons[9].y);
+			GFX::DrawIcon(sprites_arrow_idx, mainButtons[9].x, mainButtons[9].y, UIThemes->TextColor());
 			Gui::DrawStringCentered(0, 2, 0.6, UIThemes->TextColor(), Lang::get("SELECT_UNISTORE_2"), 310, 0, font);
 
 			for(int i = 0; i < 6 && i < (int)info.size(); i++) {
 				if (sPos + i == selection) Gui::Draw_Rect(mainButtons[i].x, mainButtons[i].y, mainButtons[i].w, mainButtons[i].h, UIThemes->MarkSelected());
 				Gui::DrawStringCentered(10 - 160 + (300 / 2), mainButtons[i].y + 4, 0.45f, UIThemes->TextColor(), info[sPos + i].FileName, 295, 0, font);
 			}
+		} else {
+			GFX::DrawBottom(); // Otherwise we'd draw on top.
 		}
 
-		if (info.size() <= 0) GFX::DrawBottom(); // Otherwise we'd draw on top.
-
-		GFX::DrawSprite(sprites_delete_idx, mainButtons[6].x, mainButtons[6].y);
-		GFX::DrawSprite(sprites_update_idx, mainButtons[7].x, mainButtons[7].y);
-		GFX::DrawSprite(sprites_add_idx, mainButtons[8].x, mainButtons[8].y);
+		GFX::DrawIcon(sprites_delete_idx, mainButtons[6].x, mainButtons[6].y, UIThemes->TextColor());
+		GFX::DrawIcon(sprites_update_idx, mainButtons[7].x, mainButtons[7].y, UIThemes->TextColor());
+		GFX::DrawIcon(sprites_add_idx, mainButtons[8].x, mainButtons[8].y, UIThemes->TextColor());
 		C3D_FrameEnd(0);
 
 		hidScanInput();

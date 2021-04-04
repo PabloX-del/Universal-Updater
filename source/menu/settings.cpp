@@ -83,7 +83,7 @@ static const Structs::ButtonPos Theme = { 40, 196, 280, 24 }; // Themes.
 
 static const std::vector<std::string> mainStrings = { "LANGUAGE", "SELECT_UNISTORE", "AUTO_UPDATE_SETTINGS_BTN", "GUI_SETTINGS_BTN", "DIRECTORY_SETTINGS_BTN", "CREDITS", "EXIT_APP" };
 static const std::vector<std::string> dirStrings = { "CHANGE_3DSX_PATH", "3DSX_IN_FOLDER", "CHANGE_NDS_PATH", "CHANGE_ARCHIVE_PATH", "CHANGE_SHORTCUT_PATH", "CHANGE_FIRM_PATH" };
-extern std::vector<std::string> Themes;
+extern std::vector<std::pair<std::string, std::string>> Themes;
 
 /* Note: Украïнська is spelled using a latin i with dieresis to work in the system font */
 static const std::vector<std::string> languages = { "Bruh", "Deutsch", "English", "Español", "Français", "Italiano", /* "Lietuvių", */ "Magyar", /* "Nederlands", */ "Polski", "Português", "Português (Brasil)", "Русский", "Украïнська", /* "עברית", */ "中文 (简体)", "中文 (繁體)", "日本語", /* "한국어" */ };
@@ -115,14 +115,14 @@ static void DrawSettingsMain(int selection) {
 static void DrawLanguageSettings(int selection, int sPos) {
 	Gui::Draw_Rect(40, 0, 280, 25, UIThemes->EntryBar());
 	Gui::Draw_Rect(40, 25, 280, 1, UIThemes->EntryOutline());
-	GFX::DrawSprite(sprites_arrow_idx, back.x, back.y);
-	GFX::DrawSprite(sprites_add_font_idx, langButtons[6].x, langButtons[6].y);
+	GFX::DrawIcon(sprites_arrow_idx, back.x, back.y, UIThemes->TextColor());
+	GFX::DrawIcon(sprites_add_font_idx, langButtons[6].x, langButtons[6].y, UIThemes->TextColor());
 	Gui::DrawStringCentered(20, 2, 0.6, UIThemes->TextColor(), Lang::get("SELECT_LANG"), 248, 0, font);
 
 	for(int i = 0; i < 6 && i < (int)languages.size(); i++) {
 		if (sPos + i == selection) Gui::Draw_Rect(langButtons[i].x, langButtons[i].y, langButtons[i].w, langButtons[i].h, UIThemes->MarkSelected());
 		if(langSprites[sPos + i].first != -1)
-			GFX::DrawSprite(langSprites[sPos + i].first, 160 + 20 - (langSprites[sPos + i].second / 2), langButtons[i].y + 6);
+			GFX::DrawIcon(langSprites[sPos + i].first, 160 + 20 - (langSprites[sPos + i].second / 2), langButtons[i].y + 6, UIThemes->TextColor());
 		else
 			Gui::DrawStringCentered(20, langButtons[i].y + 4, 0.45f, UIThemes->TextColor(), languages[sPos + i], 280, 0, font);
 	}
@@ -136,7 +136,7 @@ static void DrawLanguageSettings(int selection, int sPos) {
 static void DrawSettingsDir(int selection) {
 	Gui::Draw_Rect(40, 0, 280, 25, UIThemes->EntryBar());
 	Gui::Draw_Rect(40, 25, 280, 1, UIThemes->EntryOutline());
-	GFX::DrawSprite(sprites_arrow_idx, back.x, back.y);
+	GFX::DrawIcon(sprites_arrow_idx, back.x, back.y, UIThemes->TextColor(), 1.0f);
 	Gui::DrawStringCentered(20, 2, 0.6, UIThemes->TextColor(), Lang::get("DIRECTORY_SETTINGS"), 248, 0, font);
 
 	for (int i = 0; i < (int)dirButtons.size(); i++) {
@@ -146,7 +146,7 @@ static void DrawSettingsDir(int selection) {
 			GFX::DrawToggle(dirIcons[i].x, dirIcons[i].y, config->_3dsxInFolder());
 			Gui::DrawString(dirButtons[i].x + 4, dirButtons[i].y + 28, 0.4f, UIThemes->TextColor(), Lang::get("3DSX_IN_FOLDER_DESC"), 265, 0, font, C2D_WordWrap);
 		} else {
-			GFX::DrawSprite(sprites_arrow_idx, dirIcons[i].x, dirIcons[i].y, -1.0f);
+			GFX::DrawIcon(sprites_arrow_idx, dirIcons[i].x, dirIcons[i].y, UIThemes->TextColor(), 1.0f, -1.0f);
 		}
 	}
 }
@@ -157,7 +157,7 @@ static void DrawSettingsDir(int selection) {
 static void DrawAutoUpdate(int selection) {
 	Gui::Draw_Rect(40, 0, 280, 25, UIThemes->EntryBar());
 	Gui::Draw_Rect(40, 25, 280, 1, UIThemes->EntryOutline());
-	GFX::DrawSprite(sprites_arrow_idx, back.x, back.y);
+	GFX::DrawIcon(sprites_arrow_idx, back.x, back.y, UIThemes->TextColor());
 
 	Gui::DrawStringCentered(20, 2, 0.6, UIThemes->TextColor(), Lang::get("AUTO_UPDATE_SETTINGS"), 240, 0, font);
 
@@ -181,7 +181,7 @@ static void DrawAutoUpdate(int selection) {
 static void DrawGUISettings(int selection) {
 	Gui::Draw_Rect(40, 0, 280, 25, UIThemes->EntryBar());
 	Gui::Draw_Rect(40, 25, 280, 1, UIThemes->EntryOutline());
-	GFX::DrawSprite(sprites_arrow_idx, back.x, back.y);
+	GFX::DrawIcon(sprites_arrow_idx, back.x, back.y, UIThemes->TextColor());
 
 	Gui::DrawStringCentered(20, 2, 0.6, UIThemes->TextColor(), Lang::get("GUI_SETTINGS"), 248, 0, font);
 
@@ -636,14 +636,13 @@ static void LanguageLogic(int &page, int &selection, int &sPos) {
 					sPos = 0;
 					page = 0;
 				}
+
+				break;
 			}
 		}
-	}
 
-	if (hDown & KEY_TOUCH) {
 		if (touching(touch, langButtons[6])) {
 			/* Download Font. */
-			std::string l = config->language();
 			ScriptUtils::downloadFile("https://github.com/Universal-Team/extras/raw/master/files/universal-updater.bcfnt", "sdmc:/3ds/Universal-Updater/font.bcfnt", Lang::get("DOWNLOADING_COMPATIBLE_FONT"), true);
 			config->customfont(true);
 			Init::UnloadFont();

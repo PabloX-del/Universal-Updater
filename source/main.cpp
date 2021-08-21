@@ -44,9 +44,9 @@ static void InitForARG() {
 
 	/* Create Directories, if missing. */
 	mkdir("sdmc:/3ds", 0777);
-	mkdir("sdmc:/3ds/Universal-Updater", 0777);
-	mkdir("sdmc:/3ds/Universal-Updater/stores", 0777);
-	mkdir("sdmc:/3ds/Universal-Updater/shortcuts", 0777);
+	mkdir("sdmc:/3ds/Universal-Updater-Pablo", 0777);
+	mkdir("sdmc:/3ds/Universal-Updater-Pablo/stores", 0777);
+	mkdir("sdmc:/3ds/Universal-Updater-Pablo/shortcuts", 0777);
 
 	config = std::make_unique<Config>();
 	UIThemes = std::make_unique<Theme>();

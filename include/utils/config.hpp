@@ -115,7 +115,7 @@ private:
 
 	std::string v_language = "en", v_lastStore = "universal-db.unistore",
 				v_3dsxPath = "sdmc:/3ds", v_ndsPath = "sdmc:", v_archivePath = "sdmc:",
-				v_shortcutPath = "sdmc:/3ds/Universal-Updater/shortcuts", v_firmPath = "sdmc:/luma/payloads", v_theme = "Default";
+				v_shortcutPath = "sdmc:/3ds/Universal-Updater-Pablo/shortcuts", v_firmPath = "sdmc:/luma/payloads", v_theme = "Default";
 
 	bool v_list = false, v_autoUpdate = true, v_metadata = true, v_updateCheck = true,
 		v_showBg = false, v_customFont = false, v_changelog = true, v_prompt = true, v_3dsxInFolder = false;

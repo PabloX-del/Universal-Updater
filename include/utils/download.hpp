@@ -29,7 +29,7 @@
 
 #include "common.hpp"
 
-#define APP_TITLE "Universal-Updater"
+#define APP_TITLE "Universal-Updater-Pablo"
 #define VERSION_STRING "3.0.0"
 
 enum DownloadError {

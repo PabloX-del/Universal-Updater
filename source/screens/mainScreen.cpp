@@ -72,7 +72,7 @@ MainScreen::MainScreen() {
 
 	/* If Universal DB --> Get! */
 	if (config->lastStore() == "universal-db.unistore" || config->lastStore() == "") {
-		if (access("sdmc:/3ds/Universal-Updater/stores/universal-db.unistore", F_OK) != 0) {
+		if (access("sdmc:/3ds/Universal-Updater-Pablo/stores/universal-db.unistore", F_OK) != 0) {
 			if (checkWifiStatus()) {
 				std::string tmp = ""; // Just a temp.
 				DownloadUniStore("https://db.universal-team.net/unistore/universal-db.unistore", -1, tmp, true, true);
@@ -83,7 +83,7 @@ MainScreen::MainScreen() {
 			}
 
 		} else {
-			const UniStoreInfo info = GetInfo("sdmc:/3ds/Universal-Updater/stores/universal-db.unistore", "universal-db.unistore");
+			const UniStoreInfo info = GetInfo("sdmc:/3ds/Universal-Updater-Pablo/stores/universal-db.unistore", "universal-db.unistore");
 
 			if (info.Version != 3 && info.Version != _UNISTORE_VERSION) {
 				if (checkWifiStatus()) {

@@ -86,7 +86,7 @@ VERSION_MICRO := 0
 endif
 
 #---------------------------------------------------------------------------------
-TARGET		:=	Universal-Updater
+TARGET		:=	Universal-Updater-Pablo
 BUILD		:=	build
 UNIVCORE	:=	Universal-Core
 SOURCES		:=	$(UNIVCORE) source source/download source/gui source/lang source/menu source/overlays \
